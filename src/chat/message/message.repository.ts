@@ -8,7 +8,6 @@ export class MessageRepository {
     async create(createMessageDto: MessageDto) {
         try{
             let message = await this.prisma.message.create({data: createMessageDto})
-            console.log(message)
             return message
         }
         catch{

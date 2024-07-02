@@ -13,7 +13,8 @@ export class AuthService {
 
     async login(login, password) {
         const user = await this.validateUser(login, password)
-        return this.generateToken(user)
+        let token = await this.generateToken(user)
+        return {...token, user: {name: user.name, surname: user.surname, photo: user.photo, id: user.id}}
     }
 
     async registration(candidateData: UserDto) {
@@ -23,7 +24,8 @@ export class AuthService {
         }
         const hashPassword = await bcrypt.hash(candidateData.password, 5)
         const user = await this.userService.create({...candidateData, password: hashPassword})
-        return this.generateToken(user)
+        let token = await this.generateToken(user)
+        return {...token, user: {name: user.name, surname: user.surname, photo: user.photo, id: user.id}}
     }
 
     private async generateToken(user) {

@@ -7,7 +7,7 @@ import { OnModuleInit } from '@nestjs/common'
 import { MessageDto } from './message/dto/create-message.dto'
 import { MessageService } from './message/message.service'
 
-@WebSocketGateway()
+@WebSocketGateway({cors: true})
 export class ChatGateway implements OnModuleInit{
     constructor(private readonly chatService: ChatService, private readonly messageService: MessageService) {}
 
@@ -16,21 +16,16 @@ export class ChatGateway implements OnModuleInit{
 
     async onModuleInit(){
         this.server.on("connection", (socket)=>{
-            console.log(socket.id)
-            console.log("connected")
+            console.log(`Connected: ${socket.id}`)
         })
     }
 
     @SubscribeMessage('newMessage')
     async onNewMessage(@MessageBody() body: MessageDto) {
         console.log(body)
-        // let chat = await this.chatService.getByMembers()
         let newMessage = await this.messageService.create(body)
         console.log(newMessage)
-        this.server.emit('onMessage', {
-            msg: "New msg",
-            content: newMessage
-        })
+        this.server.emit('onMessage', newMessage)
     }
 
     @SubscribeMessage('removeChat')
