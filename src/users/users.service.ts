@@ -32,4 +32,8 @@ export class UsersService {
         const login = `${name} ${surname}`
         return this.repository.getByLogin(login)
     }
+
+    updateLastOnline(lastOnline, id){
+        return this.repository.update(id, {activeDate: lastOnline})
+    }
 }

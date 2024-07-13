@@ -37,4 +37,9 @@ export class UsersController {
     remove(@Param('id') id: string) {
         return this.usersService.remove(+id)
     }
+
+    @Post('/online')
+    updateLastOnline(@Body() data: {data: string, id: number}){
+        return this.usersService.updateLastOnline(data.data, data.id)
+    }
 }
