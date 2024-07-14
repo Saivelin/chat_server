@@ -41,4 +41,8 @@ export class ChatRepository {
     findMany(){
         return this.prisma.chat.findMany({...this.includeAll})
     }
+
+    getMessageByChatId(id){
+        return this.prisma.message.findMany({where: {chatId: id}})
+    }
 }

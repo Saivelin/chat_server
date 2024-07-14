@@ -29,4 +29,8 @@ export class ChatService {
     findMany(){
         return this.repository.findMany()
     }
+
+    getMessageByChatId(id){
+        return this.repository.getMessageByChatId(id)
+    }
 }
