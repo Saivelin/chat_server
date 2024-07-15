@@ -7,4 +7,8 @@ export class MessageDto {
     chatId: number
     @ApiProperty({description: "user (author) id"})
     authorId: number
+    @ApiProperty({description: "checked"})
+    checked: boolean
+    @ApiProperty({description: "url file list for message"})
+    files?: string[]
 }

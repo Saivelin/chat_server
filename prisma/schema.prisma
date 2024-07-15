@@ -39,4 +39,5 @@ model Message {
     author  User @relation(fields: [authorId], references: [id])
     authorId Int
     checked  Boolean @default(false)
+    files   String[] @default([])
 }

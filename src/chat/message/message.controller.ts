@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common'
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus } from '@nestjs/common'
 import { MessageService } from './message.service'
 import { MessageDto } from './dto/create-message.dto'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
@@ -42,5 +42,15 @@ export class MessageController {
     @ApiOperation({ summary: "Remove message" })
     remove(@Param('id') id: string) {
         return this.messageService.remove(+id)
+    }
+
+    @Post('/check')
+    @ApiOperation({summary: "Check message"})
+    check(@Body() data: {id: number}){
+        if(typeof(data.id) == "string" || typeof(data.id) == "number"){
+            return this.messageService.check(+data.id)
+        } else {
+            return {status: HttpStatus.BAD_REQUEST, message: "id: number || string", error: "type error"}
+        }
     }
 }

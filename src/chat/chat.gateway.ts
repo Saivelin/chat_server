@@ -28,6 +28,12 @@ export class ChatGateway implements OnModuleInit{
         this.server.emit('onMessage', newMessage)
     }
 
+    @SubscribeMessage('checkMessage')
+    async onCheckMessage(@MessageBody() body: {id: number}) {
+        let message = await this.messageService.check(+body.id)
+        this.server.emit('onCheck', message.id)
+    }
+
     @SubscribeMessage('removeChat')
     remove(@MessageBody() id: number) {
         return this.chatService.remove(id)

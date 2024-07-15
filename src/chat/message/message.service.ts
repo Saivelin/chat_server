@@ -28,4 +28,8 @@ export class MessageService {
     remove(id: number) {
         return this.repository.remove(id)
     }
+
+    check(id: number){
+        return this.repository.check(id)
+    }
 }

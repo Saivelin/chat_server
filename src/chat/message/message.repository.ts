@@ -34,4 +34,8 @@ export class MessageRepository {
     findAll(){
         return this.prisma.message.findMany()
     }
+
+    check(id: number){
+        return this.prisma.message.update({where: {id: id}, data: {checked: true}})
+    }
 }
